@@ -1,0 +1,249 @@
+-- --to find top sales of region by country
+select * from (select  "Region","Country",max("Sales"),rank() 
+							over(Partition by "Region"
+							order by max("Sales") desc) as ranking 
+							from  "TEST_3"."Test.db.Tables::SalesRegion"
+							group by "Region","Country")  where ranking >= 1;
+-- -- Join calculation view with input parameters and table on a key 
+-- SELECT TOP 10 T1."HKY"
+-- FROM "SMART"."CS_BV_CTX.PIPETRNS_BS" AS T1  -- TABLE
+-- INNER JOIN "SMART"."smart.views::S_TRANS_CVD"  --CALCULATION VIEW
+-- (placeholder."$$IP_KEY_DATE$$"=>'2021-04-13') AS T2 --FILTER ON INPUT PARAMETERS
+-- ON T1."HKY" = T2."TRANS_BH_HKY"
+-- WHERE T1."CURRENT_FLAG" = 'Y'; --FILTER ON COLUMN
+-- -- ***********************To find duplicate rows in a table************
+-- 	select "EMPNAME","SALARY","DEPARTMENT" from (select "EMPNAME","SALARY","DEPARTMENT", 
+-- 				   COUNT(*) FROM "TEST_3"."Test.db.Tables::Employee.Employee"
+-- 		GROUP BY "EMPNAME","SALARY","DEPARTMENT"  HAVING COUNT(*) > 1)
+-- ********************************************************************
+-- -- *************Delete Duplicate data from table****************
+-- do begin
+-- declare lv integer;
+-- --drop table "TEST_3"."Test.db.Tables::new2";
+-- create LOCAL TEMPORARY TABLE #MY_LOCAL_TEMP_TABLE like "TEST_3"."Test.db.Tables::Test2" with data;
+-- lt_1 = select distinct * from #MY_LOCAL_TEMP_TABLE;
+-- select * from :lt_1;
+-- select count(*) into lv from :lt_1;
+-- select lv from dummy;
+-- if (lv >= 1) then
+-- delete from "TEST_3"."Test.db.Tables::Test2";
+-- insert into "TEST_3"."Test.db.Tables::Test2"(select * from :lt_1);
+-- end if;
+-- drop table #MY_LOCAL_TEMP_TABLE;
+-- end;
+-- *************************************************************
+-- -- ******************insert data for transpose CV****************
+-- Select count(distinct org_code) from "TEST_3"."Test.db.Tables::transpose_data" where "value" like '%ACN%';
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1002'/*org_code <NVARCHAR(10)>*/,
+-- 	'First_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Ahmed'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1002'/*org_code <NVARCHAR(10)>*/,
+-- 	'Last_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Khan'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1002'/*org_code <NVARCHAR(10)>*/,
+-- 	'DOB'/*characteristics <NVARCHAR(10)>*/,
+-- 	'29.07.1989'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1002'/*org_code <NVARCHAR(10)>*/,
+-- 	'Manager_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Dimitry'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1002'/*org_code <NVARCHAR(10)>*/,
+-- 	'Department'/*characteristics <NVARCHAR(10)>*/,
+-- 	'SAP'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1002'/*org_code <NVARCHAR(10)>*/,
+-- 	'Organization'/*characteristics <NVARCHAR(10)>*/,
+-- 	'ACN Latvia'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1003'/*org_code <NVARCHAR(10)>*/,
+-- 	'First_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Shakti'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1003'/*org_code <NVARCHAR(10)>*/,
+-- 	'Last_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Bhushan'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1003'/*org_code <NVARCHAR(10)>*/,
+-- 	'DOB'/*characteristics <NVARCHAR(10)>*/,
+-- 	'09.05.1987'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1003'/*org_code <NVARCHAR(10)>*/,
+-- 	'Manager_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Niklavs'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1003'/*org_code <NVARCHAR(10)>*/,
+-- 	'Department'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Salesforce'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1003'/*org_code <NVARCHAR(10)>*/,
+-- 	'Organization'/*characteristics <NVARCHAR(10)>*/,
+-- 	'ACN NetherLands'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1004'/*org_code <NVARCHAR(10)>*/,
+-- 	'First_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Kalpesh'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1004'/*org_code <NVARCHAR(10)>*/,
+-- 	'Last_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'kumar'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1004'/*org_code <NVARCHAR(10)>*/,
+-- 	'DOB'/*characteristics <NVARCHAR(10)>*/,
+-- 	'16.03.1990'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1004'/*org_code <NVARCHAR(10)>*/,
+-- 	'Manager_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Manoj'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1004'/*org_code <NVARCHAR(10)>*/,
+-- 	'Department'/*characteristics <NVARCHAR(10)>*/,
+-- 	'SAP'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1004'/*org_code <NVARCHAR(10)>*/,
+-- 	'Organization'/*characteristics <NVARCHAR(10)>*/,
+-- 	'ACN India'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1005'/*org_code <NVARCHAR(10)>*/,
+-- 	'First_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Dipika'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1005'/*org_code <NVARCHAR(10)>*/,
+-- 	'Last_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Kshirsagar'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1005'/*org_code <NVARCHAR(10)>*/,
+-- 	'DOB'/*characteristics <NVARCHAR(10)>*/,
+-- 	'05.11.1994'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1005'/*org_code <NVARCHAR(10)>*/,
+-- 	'Manager_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Deep'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1005'/*org_code <NVARCHAR(10)>*/,
+-- 	'Department'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Oracle'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1005'/*org_code <NVARCHAR(10)>*/,
+-- 	'Organization'/*characteristics <NVARCHAR(10)>*/,
+-- 	'ACN Malaysia'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1006'/*org_code <NVARCHAR(10)>*/,
+-- 	'First_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Tom'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1006'/*org_code <NVARCHAR(10)>*/,
+-- 	'Last_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'cruise'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1006'/*org_code <NVARCHAR(10)>*/,
+-- 	'DOB'/*characteristics <NVARCHAR(10)>*/,
+-- 	'19.12.2001'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1006'/*org_code <NVARCHAR(10)>*/,
+-- 	'Manager_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Vlad'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1006'/*org_code <NVARCHAR(10)>*/,
+-- 	'Department'/*characteristics <NVARCHAR(10)>*/,
+-- 	'JAVA'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1006'/*org_code <NVARCHAR(10)>*/,
+-- 	'Organization'/*characteristics <NVARCHAR(10)>*/,
+-- 	'ACN USA'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1007'/*org_code <NVARCHAR(10)>*/,
+-- 	'First_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Samuel'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1007'/*org_code <NVARCHAR(10)>*/,
+-- 	'Last_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Maxwell'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1007'/*org_code <NVARCHAR(10)>*/,
+-- 	'DOB'/*characteristics <NVARCHAR(10)>*/,
+-- 	'31.02.1967'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1007'/*org_code <NVARCHAR(10)>*/,
+-- 	'Manager_Name'/*characteristics <NVARCHAR(10)>*/,
+-- 	'Robert'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1007'/*org_code <NVARCHAR(10)>*/,
+-- 	'Department'/*characteristics <NVARCHAR(10)>*/,
+-- 	'.Net'/*value <NVARCHAR(10)>*/
+-- );
+-- INSERT INTO "TEST_3"."Test.db.Tables::transpose_data" VALUES(
+-- 	'1007'/*org_code <NVARCHAR(10)>*/,
+-- 	'Organization'/*characteristics <NVARCHAR(10)>*/,
+-- 	'ACN Westindies'/*value <NVARCHAR(10)>*/
+-- );
+-- -- *************split column to rows****************************
+-- DO
+-- BEGIN
+
+-- 	DECLARE MAX_NR_OCCURRENCES INT;
+	
+-- 	SELECT
+-- 		MAX( OCCURRENCES_REGEXPR(',' IN "country" ) + 1 )
+-- 	INTO
+-- 		MAX_NR_OCCURRENCES
+-- 	FROM
+-- 	 	"TEST_3"."Test.db.Tables::sales";
+
+-- 	SELECT 
+-- 		CNT."region",
+-- 		SUBSTR_REGEXPR('[^,]+' IN "country" OCCURRENCE SERIES."ELEMENT_NUMBER") AS "country"		
+-- 	FROM 
+-- 		"TEST_3"."Test.db.Tables::sales" CNT
+-- 		CROSS JOIN SERIES_GENERATE_INTEGER(1,0, :MAX_NR_OCCURRENCES) SERIES 	
+-- 	WHERE
+-- 		SUBSTR_REGEXPR('[^,]+' IN "country" OCCURRENCE SERIES."ELEMENT_NUMBER") IS NOT NULL
+-- 		order by "region";
+		
+-- END
+-- *********************************************
+-- calculated column expressions
+-- if("characteristics"= 'First_Name', "value", '')
+-- if("characteristics"= 'Last_Name', "value", '')
+-- if("characteristics"= 'DOB', "value", '')
+-- if("characteristics"= 'Manager_Name', "value", '')
+-- if("characteristics"= 'Department', "value", '')
+-- if("characteristics"= 'Organization', "value", '')
+-- **********************************

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Calculation:scenario xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:Calculation="http://www.sap.com/ndb/BiModelCalculation.ecore" id="Test.db.model::Transpose_Data" applyPrivilegeType="NONE" dataCategory="CUBE" schemaVersion="3.0" outputViewType="Aggregation" cacheInvalidationPeriod="NONE" enforceSqlExecution="false">
+<descriptions defaultDescription="Transpose_Data"/>
+<localVariables/>
+<variableMappings/>
+<dataSources>
+  <DataSource id="Test.db.Tables::transpose_data">
+    <resourceUri>Test.db.Tables::transpose_data</resourceUri>
+  </DataSource>
+</dataSources>
+<calculationViews>
+  <calculationView xsi:type="Calculation:ProjectionView" id="Projection_1">
+    <viewAttributes>
+      <viewAttribute id="org_code"/>
+      <viewAttribute id="characteristics"/>
+      <viewAttribute id="value"/>
+    </viewAttributes>
+    <calculatedViewAttributes>
+      <calculatedViewAttribute id="First_Name" datatype="NVARCHAR" length="13" expressionLanguage="COLUMN_ENGINE">
+        <formula>if(&quot;characteristics&quot;= 'First_Name', &quot;value&quot;, '')</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="Last_Name" datatype="NVARCHAR" length="13" expressionLanguage="COLUMN_ENGINE">
+        <formula>if(&quot;characteristics&quot;= 'Last_Name', &quot;value&quot;, '')</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="DOB" datatype="NVARCHAR" length="13" expressionLanguage="COLUMN_ENGINE">
+        <formula>if(&quot;characteristics&quot;= 'DOB', &quot;value&quot;, '')</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="Manager_Name" datatype="NVARCHAR" length="13" expressionLanguage="COLUMN_ENGINE">
+        <formula>if(&quot;characteristics&quot;= 'Manager_Name', &quot;value&quot;, '')</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="Department" datatype="NVARCHAR" length="13" expressionLanguage="COLUMN_ENGINE">
+        <formula>if(&quot;characteristics&quot;= 'Department', &quot;value&quot;, '')</formula>
+      </calculatedViewAttribute>
+      <calculatedViewAttribute id="Organization" datatype="NVARCHAR" length="13" expressionLanguage="COLUMN_ENGINE">
+        <formula>if(&quot;characteristics&quot;= 'Organization', &quot;value&quot;, '')</formula>
+      </calculatedViewAttribute>
+    </calculatedViewAttributes>
+    <input node="Test.db.Tables::transpose_data"/>
+  </calculationView>
+</calculationViews>
+<logicalModel id="Projection_1">
+  <attributes>
+    <attribute id="org_code" order="1" displayAttribute="false" attributeHierarchyActive="false" transparentFilter="true">
+      <descriptions defaultDescription="org_code"/>
+      <keyMapping columnObjectName="Projection_1" columnName="org_code"/>
+    </attribute></attributes>
+  <calculatedAttributes/>
+  <baseMeasures>
+    <measure id="First_Name" order="2" aggregationType="max" measureType="simple">
+      <descriptions defaultDescription="First_Name"/>
+      <measureMapping columnObjectName="Projection_1" columnName="First_Name"/>
+    </measure>
+    <measure id="Last_Name" order="3" aggregationType="max" measureType="simple">
+      <descriptions defaultDescription="Last_Name"/>
+      <measureMapping columnObjectName="Projection_1" columnName="Last_Name"/>
+    </measure>
+    <measure id="DOB" order="4" aggregationType="max" measureType="simple">
+      <descriptions defaultDescription="DOB"/>
+      <measureMapping columnObjectName="Projection_1" columnName="DOB"/>
+    </measure>
+    <measure id="Manager_Name" order="5" aggregationType="max" measureType="simple">
+      <descriptions defaultDescription="Manager_Name"/>
+      <measureMapping columnObjectName="Projection_1" columnName="Manager_Name"/>
+    </measure>
+    <measure id="Department" order="6" aggregationType="max" measureType="simple">
+      <descriptions defaultDescription="Department"/>
+      <measureMapping columnObjectName="Projection_1" columnName="Department"/>
+    </measure>
+    <measure id="Organization" order="7" aggregationType="max" measureType="simple">
+      <descriptions defaultDescription="Organization"/>
+      <measureMapping columnObjectName="Projection_1" columnName="Organization"/>
+    </measure>
+  </baseMeasures>
+  <calculatedMeasures/>
+  <restrictedMeasures/>
+  <localDimensions/>
+</logicalModel>
+<layout>
+  <shapes>
+    <shape expanded="true" modelObjectName="Output" modelObjectNameSpace="MeasureGroup">
+      <upperLeftCorner x="92" y="112"/>
+    
+      <rectangleSize width="160"/>
+    </shape>
+  
+    <shape expanded="true" modelObjectName="Projection_1" modelObjectNameSpace="CalculationView">
+      <upperLeftCorner x="92" y="217"/>
+      <rectangleSize height="30" width="160"/>
+    </shape>
+  </shapes>
+</layout>
+</Calculation:scenario>

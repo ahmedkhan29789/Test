@@ -1,0 +1,25 @@
+namespace Test.db.Tables;
+
+context Employee {
+
+    /*@@layout{"layoutInfo":{"x":-435,"y":-127.5}}*/
+    entity Employee {
+        key EMPID      : Integer not null;
+            EMPNAME    : String(10);
+            SALARY     : Integer;
+            DEPARTMENT : String(10);
+    };
+};
+
+/*@@layout{"layoutInfo":{"x":-382,"y":-26.5}}*/
+entity sales {
+    region  : String(100);
+    country : String(100);
+};
+
+/*@@layout{"layoutInfo":{"x":-638,"y":-27.5}}*/
+entity SalesRegion {
+    Region  : String(100);
+    Country : String(100);
+    Sales   : Integer;
+};

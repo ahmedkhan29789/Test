@@ -1,0 +1,35 @@
+namespace Test.db.Tables;
+
+context test {
+    entity test_sales {
+            @Comment : 'customer'
+        key customer : String(30);
+
+            @Comment : 'region'
+            region   : String(30);
+
+            @Comment : 'sales'
+            sales    : Integer;
+    }
+};
+
+/*@@layout{"layoutInfo":{"x":-316,"y":-31.5}}*/
+entity Test1 {
+    id   : Integer;
+    name : String(10);
+    age  : Integer;
+};
+
+/*@@layout{"layoutInfo":{"x":-557,"y":-31.5}}*/
+entity Test2 {
+    id   : Integer;
+    name : String(10);
+    age  : Integer;
+};
+
+/*@@layout{"layoutInfo":{"x":-491,"y":-234.5}}*/
+entity transpose_data {
+    org_code        : String(100);
+    characteristics : String(100);
+    value           : String(100);
+};
