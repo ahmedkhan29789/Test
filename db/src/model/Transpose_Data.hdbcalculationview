@@ -40,7 +40,7 @@
 </calculationViews>
 <logicalModel id="Projection_1">
   <attributes>
-    <attribute id="org_code" order="1" displayAttribute="false" attributeHierarchyActive="false" transparentFilter="true">
+    <attribute id="Org_Code" order="1" displayAttribute="false" attributeHierarchyActive="false" transparentFilter="true">
       <descriptions defaultDescription="org_code"/>
       <keyMapping columnObjectName="Projection_1" columnName="org_code"/>
     </attribute></attributes>
